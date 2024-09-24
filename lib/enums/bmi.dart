@@ -2,16 +2,21 @@ import 'package:flutter/material.dart';
 
 enum BmiEnum {
   normal(
-    'its normal',
+    'Normal',
     Colors.green,
   ),
   underWeight(
-    'its under weight',
+    'Under Weight',
     Colors.orange,
   ),
   overWeight(
-    'its over weight',
+    'Over Weight',
     Colors.red,
+  ),
+
+  obese(
+    'Obese',
+    Color.fromARGB(255, 114, 19, 12),
   );
 
   const BmiEnum(this.label, this.color);
