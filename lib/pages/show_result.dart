@@ -3,7 +3,7 @@ import '../enums/bmi.dart';
 import '../enums/gender.dart';
 
 class ShowResult extends StatelessWidget {
-  ShowResult({
+  const ShowResult({
     super.key,
     required this.name,
     required this.gender,
@@ -11,10 +11,10 @@ class ShowResult extends StatelessWidget {
     required this.bmi,
   });
 
-  String name;
-  Gender gender;
-  BmiEnum bmiEnum;
-  double bmi;
+  final String name;
+  final Gender gender;
+  final BmiEnum bmiEnum;
+  final double bmi;
 
   @override
   Widget build(BuildContext context) {
