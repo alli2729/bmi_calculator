@@ -147,32 +147,40 @@ class _InputDataState extends State<InputData> {
 
   String? _validator(String? input) {
     if (input == null || input.isEmpty) return 'required';
+    if (RegExp(input).hasMatch(r'[0][0-9]*')) return 'invalid';
+
     return null;
   }
 
   void _goToResult() async {
     if (_formKey.currentState?.validate() ?? false) {
       _bmi = _calculate();
-      _bmiEnum = _bmiEnumCalculate(_bmi);
 
-      bool? result = await Navigator.push<bool?>(
-        context,
-        MaterialPageRoute(
-          builder: (_) => ShowResult(
-            name: _nameController.text,
-            gender: _gender,
-            bmiEnum: _bmiEnum,
-            bmi: _bmi,
+      if (_bmi == 0 || _bmi > 50) {
+        SnackBar snackBar = const SnackBar(content: Text('invalid value'));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      } else {
+        _bmiEnum = _bmiEnumCalculate(_bmi);
+
+        bool? result = await Navigator.push<bool?>(
+          context,
+          MaterialPageRoute(
+            builder: (_) => ShowResult(
+              name: _nameController.text,
+              gender: _gender,
+              bmiEnum: _bmiEnum,
+              bmi: _bmi,
+            ),
           ),
-        ),
-      );
+        );
 
-      if (result != null) {
-        if (result) {
-          _nameController.clear();
-          _heightController.clear();
-          _weightController.clear();
-          _gender = Gender.male;
+        if (result != null) {
+          if (result) {
+            _nameController.clear();
+            _heightController.clear();
+            _weightController.clear();
+            _gender = Gender.male;
+          }
         }
       }
     }
@@ -180,13 +188,13 @@ class _InputDataState extends State<InputData> {
 
   BmiEnum _bmiEnumCalculate(double bmi) {
     switch (bmi) {
-      case < 18.5:
+      case > 15 && < 18.5:
         return BmiEnum.underWeight;
-      case > 18.5 && < 24.9:
+      case >= 18.5 && <= 24.9:
         return BmiEnum.normal;
-      case > 25 && < 29.9:
+      case >= 25 && <= 29.9:
         return BmiEnum.overWeight;
-      case > 30:
+      case >= 30:
         return BmiEnum.obese;
 
       default:
@@ -197,7 +205,8 @@ class _InputDataState extends State<InputData> {
   double _calculate() {
     final double weight = double.parse(_weightController.text);
     final double height = double.parse(_heightController.text) / 100;
-
-    return (weight / pow(height, 2)).floorToDouble();
+    final double bmi = (weight / pow(height, 2)).floorToDouble();
+    (bmi > 0 || bmi < 50) ? bmi : -1;
+    return bmi;
   }
 }

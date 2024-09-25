@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:navigate_app/widgets/animated_slider.dart';
 import 'pages/input_data.dart';
 import 'pages/first_page.dart';
 
@@ -11,7 +12,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: InputData(),
     );

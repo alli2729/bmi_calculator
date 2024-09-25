@@ -27,7 +27,7 @@ class GenderWidget extends StatelessWidget {
             padding: const EdgeInsets.all(12.0),
             child: Text(
               textAlign: TextAlign.center,
-              value.title,
+              value.lable,
               style: TextStyle(color: selectedV ? Colors.white : Colors.blue),
             ),
           )),

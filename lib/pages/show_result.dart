@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:navigate_app/widgets/animated_slider.dart';
 import '../enums/bmi.dart';
 import '../enums/gender.dart';
 
@@ -52,6 +53,8 @@ class ShowResult extends StatelessWidget {
               'You are in the ${bmiEnum.label} range ',
               style: TextStyle(color: _color, fontSize: 20),
             ),
+            _bigGap(),
+            AnimatedSlider(value: bmi),
             _bigGap(),
             _resetButton(context)
           ],
